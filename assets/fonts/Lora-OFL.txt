@@ -1,0 +1,4 @@
+Lora font family, Copyright 2011 The Lora Project Authors (https://github.com/cyrealtype/Lora-Cyrillic).
+This Font Software is licensed under the SIL Open Font License, Version 1.1.
+The licence text is at https://openfontlicense.org. The font files in this folder are subsets of
+the upstream fonts (Latin letters, digits, punctuation and the rupee sign) and are unmodified otherwise.

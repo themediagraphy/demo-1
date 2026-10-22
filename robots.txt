@@ -1,0 +1,6 @@
+# the mediagraphy.in: every public page may be crawled
+User-agent: *
+Allow: /
+Disallow: /404.html
+
+Sitemap: https://themediagraphy.in/sitemap.xml
