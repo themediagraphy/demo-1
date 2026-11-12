@@ -10,6 +10,7 @@
     var i = +qb.value, b = C.bt(i), bud = +qr.value;
     var r = C.estimate({ bti: i, budget: bud, scn: 1, chn: 0, rs: 0, season: 0, margin: b.mg, repeat: b.rep, ticket: b.tk, area: 1, close: b.cl });
     $('qv').textContent = inr(bud); $('qo').textContent = r.elo + '–' + r.ehi; $('qc').textContent = '~' + Math.round(r.cu); $('qp').textContent = D.PLANS[r.pl].n + ' (' + inr(D.PLANS[r.pl].f) + '/mo)';
+    $('qas').textContent = 'Assumes about ' + inr(r.cpl) + ' per enquiry and ' + Math.round(r.cl) + ' in 100 enquiries becoming customers.';
     $('qgo').href = root + 'tools/' + MG.idx + '?t=' + b.slug + '&b=' + bud + '#estimate';
   }
   if (qb) { qb.addEventListener('input', quick); qr.addEventListener('input', quick); quick(); }
@@ -63,6 +64,7 @@
   /* ---------- contact form ---------- */
   var cf = $('cform');
   if (cf) {
+    cf.addEventListener('submit', function (e) { e.preventDefault(); });   /* never let the browser submit (and put typed details in the URL) */
     var upSend = function () { $('send').href = wa('Namaste Mediagraphy! I am ' + ($('cn').value || '-') + ' from ' + ($('cb').value || '-') + '. ' + $('cd').value); };
     ['cn', 'cb', 'cd'].forEach(function (i) { $(i).addEventListener('input', upSend); }); upSend();
     $('send').addEventListener('click', function () { if (!$('hp').value && ($('cn').value || $('cp').value || $('cd').value)) MG.lead('whatsapp-contact', { name: $('cn').value, phone: $('cp').value, biz: $('cb').value, msg: $('cd').value }); });

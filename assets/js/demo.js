@@ -1,4 +1,4 @@
-/* demo.js: the hero rail map and the animated four-step enquiry flow. All data is sample data and is labelled as such on the page. */
+/* demo.js: the animated four-step enquiry flow. All data is sample data and is labelled as such on the page. */
 (function () {
   'use strict';
   var MG = window.MG, $$ = MG.$$, d = document;
@@ -13,22 +13,17 @@
   function later(fn, ms) { var t = setTimeout(fn, ms); tm.push(t); return t; }
   function clear() { tm.forEach(clearTimeout); tm = []; }
 
-  /* ---- hero rail map: hovering a station lights its area chip (and the other way round); the moving dots stop for reduced motion ---- */
-  var rail = d.getElementById('rail');
-  if (rail) {
-    var chips = $$('.rail__chip[data-s]'), stns = $$('a.stn', rail);
-    var mark = function (slug, on) {
-      chips.forEach(function (c) { if (c.dataset.s === slug) c.classList.toggle('hl', on); });
-      stns.forEach(function (s) { if (s.dataset.s === slug) s.classList.toggle('hl', on); });
-    };
-    stns.concat(chips).forEach(function (el) {
-      var slug = el.dataset.s;
-      ['mouseenter', 'focus'].forEach(function (ev) { el.addEventListener(ev, function () { mark(slug, true); }); });
-      ['mouseleave', 'blur'].forEach(function (ev) { el.addEventListener(ev, function () { mark(slug, false); }); });
-    });
-    if (MG.reduced && rail.pauseAnimations) rail.pauseAnimations();
-    /* pause the dots while the map is off screen (saves battery on phones) */
-    if ('IntersectionObserver' in window && rail.pauseAnimations) new IntersectionObserver(function (es) { es.forEach(function (e) { if (MG.reduced) return; if (e.isIntersecting) rail.unpauseAnimations(); else rail.pauseAnimations(); }); }).observe(rail);
+  /* ---- hero growth engine: the dots travel along SVG paths; the sample counter ticks as each one lands; everything pauses off screen and for reduced motion ---- */
+  var eng = d.querySelector('.eng__svg'), engN = d.getElementById('engN');
+  if (eng) {
+    var n = 24, stage = eng.closest('.eng'), run = true;
+    if (MG.reduced && eng.pauseAnimations) eng.pauseAnimations();
+    if (!MG.reduced && engN) {
+      setInterval(function () { if (!run || d.hidden) return; n = n >= 36 ? 24 : n + 1; engN.textContent = n; }, 1200);
+    }
+    if ('IntersectionObserver' in window && stage) new IntersectionObserver(function (es) {
+      es.forEach(function (e) { run = e.isIntersecting; if (MG.reduced || !eng.pauseAnimations) return; if (run) eng.unpauseAnimations(); else eng.pauseAnimations(); });
+    }).observe(stage);
   }
 
   /* ---- four-step flow ---- */

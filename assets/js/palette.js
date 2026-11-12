@@ -21,13 +21,18 @@
     ['Contact us', 'Page', '', 'page', function () { return u('contact/'); }, 'whatsapp call email form callback'],
     ['FAQ', 'Page', '', 'page', function () { return u('faq/'); }, 'questions gst commission contract results'],
     ['Services', 'Page', '', 'page', function () { return u('services/'); }, 'all services'],
-    ['Areas we serve', 'Page', '', 'pin', function () { return u('areas/'); }, 'kalyan dombivli thane']
+    ['Areas we serve', 'Page', '', 'pin', function () { return u('areas/'); }, 'kalyan dombivli thane'],
+    ['Guides', 'Page', '', 'page', function () { return u('guides/'); }, 'articles learn how to help read'],
+    ['Sample reports', 'Page', '', 'page', function () { return u('samples/'); }, 'sample audit monthly report plan example'],
+    ['Facts and how to verify us', 'Page', '', 'page', function () { return u('about/'); }, 'about who we are facts trust check legal']
   ];
+  (D.GD || []).forEach(function (g) { items.push([g.name, 'Guide', '', 'page', function () { return u('guides/' + g.slug + '/'); }, g.t]); });
   (D.SV || []).forEach(function (s) { items.push([s.name, 'Service', '', 'tag', function () { return u('services/' + s.slug + '/'); }, 'service']); });
   (D.AREAS || []).forEach(function (a) { items.push([a.name, 'Area', '', 'pin', function () { return u('areas/' + a.slug + '/'); }, 'area near location']); });
   (D.PLANS || []).forEach(function (p) { items.push([p.n + ' plan', 'Plan', MG.inr(p.f) + ' a month', 'tag', function () { return u('pricing/', '#plans'); }, 'plan price ' + p.slug + ' ' + p['for']]); });
   items.push(['Privacy policy', 'Page', '', 'page', function () { return u('privacy/'); }, 'data legal']);
-  items.push(['Terms and refunds', 'Page', '', 'page', function () { return u('terms/'); }, 'legal refund']);
+  items.push(['Terms of service', 'Page', '', 'page', function () { return u('terms/'); }, 'legal terms conditions']);
+  items.push(['Refund and cancellation policy', 'Page', '', 'page', function () { return u('refund/'); }, 'refund cancel money back']);
   items.push(['Service agreement', 'Page', '', 'page', function () { return u('agreement/'); }, 'contract legal']);
   items.push(['Message us on WhatsApp', 'Action', '', 'wa', function () { return MG.wa('Namaste Mediagraphy!'); }, 'chat whatsapp message', true]);
   items.push(['Call ' + (window.MG_CONFIG && MG_CONFIG.phone || ''), 'Action', '', 'phone', function () { return 'tel:+' + MG.WA; }, 'phone call dial']);

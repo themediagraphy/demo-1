@@ -32,10 +32,21 @@
     cancelAnimationFrame(el._r); var t0 = performance.now();
     (function f(n) { var p = Math.min((n - t0) / ms, 1), e = 1 - Math.pow(1 - p, 3); el.textContent = fmt(from + (to - from) * e); if (p < 1) el._r = requestAnimationFrame(f); })(t0);
   };
+  /* Everything a visitor types is treated as untrusted: control characters removed, length capped, only plain strings and numbers kept. */
+  MG.clean = function (v, n) { return String(v == null ? '' : v).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f\u200b-\u200f\u2028\u2029\u202a-\u202e\u2066-\u2069\ufeff]/g, '').trim().slice(0, n || 300); };
+  var LEAD_URL = /^https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]{20,}\/exec$/, lastLead = { sig: '', at: 0 };
   MG.lead = function (type, data) {
-    if (!CFG.leadUrl) return Promise.resolve(false);
-    var rec = Object.assign({ type: type, time: new Date().toISOString(), page: location.pathname }, data);
-    try { return fetch(CFG.leadUrl, { method: 'POST', mode: 'no-cors', keepalive: true, body: JSON.stringify(rec) }).then(function () { return true; }, function () { return false; }); }
+    if (!CFG.leadUrl || !LEAD_URL.test(CFG.leadUrl)) return Promise.resolve(false);    /* only ever post to our own Google Apps Script */
+    var rec = { type: MG.clean(type, 40), time: new Date().toISOString(), page: MG.clean(location.pathname, 120) };
+    Object.keys(data || {}).slice(0, 14).forEach(function (k) {
+      var v = data[k], cap = k === 'extra' || k === 'msg' ? 3000 : 200;
+      if (typeof v === 'number' && isFinite(v)) rec[MG.clean(k, 30)] = v; else if (typeof v === 'string') rec[MG.clean(k, 30)] = MG.clean(v, cap);
+    });
+    var sig = JSON.stringify(rec, function (k, v) { return k === 'time' ? undefined : v; }), now = Date.now();
+    if (sig === lastLead.sig && now - lastLead.at < 30000) return Promise.resolve(false);   /* a double tap must not log twice */
+    lastLead = { sig: sig, at: now };
+    var body = JSON.stringify(rec); if (body.length > 8000) return Promise.resolve(false);
+    try { return fetch(CFG.leadUrl, { method: 'POST', mode: 'no-cors', credentials: 'omit', referrerPolicy: 'no-referrer', keepalive: true, body: body }).then(function () { return true; }, function () { return false; }); }
     catch (e) { return Promise.resolve(false); }
   };
   MG.save = function (fn, data, btn, label) {
@@ -102,6 +113,8 @@
       try {
         var t = d.startViewTransition(function () { h.classList.add('tnr'); applyTheme(nx); });
         t.ready.then(function () {
+          /* measure again now that the new frame exists: the circle must start exactly where the button is drawn */
+          var r2 = tg.getBoundingClientRect(); if (r2.width) { x = r2.left + r2.width / 2; y = r2.top + r2.height / 2; rad = Math.ceil(Math.hypot(Math.max(x, W - x), Math.max(y, H - y))) + 40; }
           h.animate({ clipPath: ['circle(0px at ' + x + 'px ' + y + 'px)', 'circle(' + rad + 'px at ' + x + 'px ' + y + 'px)'] },
             { duration: 750, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards', pseudoElement: '::view-transition-new(root)' });
         }).catch(end);

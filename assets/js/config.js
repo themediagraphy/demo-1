@@ -13,6 +13,10 @@ window.MG_CONFIG = {
      Leave empty to use WhatsApp and email only (nothing is stored). */
   leadUrl: '',
 
+  /* Optional: count taps on WhatsApp, Call, Email and the main buttons (only the name of the tap and the page, no names, numbers or cookies).
+     It needs leadUrl above. Leave false unless you also add a line about it to the Privacy Policy, which at present says the site has no analytics. */
+  trackEvents: false,
+
   whatsapp: '918637744905',
   phone: '+91 86377 44905',
   email: 'growth@themediagraphy.in',

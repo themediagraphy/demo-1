@@ -11,8 +11,8 @@
     { k: 'English', h: function (a) { return 'Right here in ' + a.n + '. Your own doctor.'; }, t: function (a) { return 'Near ' + a.l + ' · Book today'; }, c: 'Book on WhatsApp' }];
   var GN = ['Glossy stock look. Nobody in Kalyan sees a real clinic, doctor or street here, so there is nothing to trust.', 'The skyline could be anywhere. Dombivli customers look for Phadke Road or Station Road, not a generic city.', 'English-only corporate copy. Most local customers decide in Marathi or Hindi, over WhatsApp.', 'A vague "Learn More" button sends people to a website. Local buyers want to message first.'];
   var LNL = ['Shot at the real clinic on your own street, so people recognise the place before they read a word.', 'Marathi, Hindi or English copy chosen for the area. It sounds like a neighbour, not a brand.', 'The landmark tells people it is close by. Change the area above and watch it update.', 'One tap opens WhatsApp with a ready message, which is how local customers actually book.'];
-  var MET = [['Feels like your neighbourhood', 22, 91], ['Marathi / Hindi language fit', 15, 94], ['Trust signals (real shop, real face)', 18, 88], ['Easy way to enquire (WhatsApp)', 30, 82]];
-  var KP = [['What the customer sees', 'A stock image', 'Their own street'], ['How they respond', 'Scroll past', 'Tap to WhatsApp']];
+  var MET = [['Feels like your neighbourhood', 1, 5], ['Marathi / Hindi language fit', 1, 5], ['Trust signals (real shop, real face)', 1, 4], ['Easy way to enquire (WhatsApp)', 2, 4]], LV = ['', 'Weak', 'Basic', 'Fair', 'Good', 'Strong'];
+  var KP = [['What the customer sees', 'A stock image', 'Their own street'], ['What we aim for', 'Easy to scroll past', 'Easy to tap and message']];
 
   function note(w, i) {
     $$('.pin', $('w-' + w)).forEach(function (p, j) { p.classList.toggle('on', j === i); });
@@ -22,9 +22,9 @@
 
   function score() {
     var g = CM !== 'loc', l = CM !== 'gen';
-    $('cs').innerHTML = '<h3 style="margin-bottom:4px">How we rate these two ads</h3><p class="note" style="margin:0 0 8px">Our own creative rating out of 100, based on what we look for in a local ad. It is a judgement, not measured results.</p>' +
+    $('cs').innerHTML = '<h3 style="margin-bottom:4px">How we judge these two ads</h3><p class="note" style="margin:0 0 8px">A simple checklist we use for local ads, on a five-step scale from Weak to Strong. It is our own judgement of these two sample ads, not measured results.</p>' +
       '<div class="lg2">' + (g ? '<span><i style="background:#9a9aa8"></i>Generic AI</span>' : '') + (l ? '<span><i style="background:var(--acc)"></i>Local human</span>' : '') + '</div>' +
-      MET.map(function (m) { return '<div class="srow"><span><b>' + m[0] + '</b><em style="font-style:normal">' + (g ? m[1] + '%' : '') + (g && l ? ' → ' : '') + (l ? m[2] + '%' : '') + '</em></span>' + (g ? '<div class="sb"><i class="g" style="width:' + m[1] + '%"></i></div>' : '') + (l ? '<div class="sb"><i class="l" style="width:' + m[2] + '%"></i></div>' : '') + '</div>'; }).join('') +
+      MET.map(function (m) { return '<div class="srow"><span><b>' + m[0] + '</b><em style="font-style:normal">' + (g ? LV[m[1]] : '') + (g && l ? ' → ' : '') + (l ? LV[m[2]] : '') + '</em></span>' + (g ? '<div class="sb"><i class="g" style="width:' + m[1] * 20 + '%"></i></div>' : '') + (l ? '<div class="sb"><i class="l" style="width:' + m[2] * 20 + '%"></i></div>' : '') + '</div>'; }).join('') +
       '<div class="kk">' + KP.map(function (k) { return '<div><small>' + k[0] + '</small><b>' + (g ? k[1] : '') + (g && l ? ' → ' : '') + (l ? k[2] : '') + '</b></div>'; }).join('') + '</div>';
   }
   function loc() {

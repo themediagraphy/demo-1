@@ -90,7 +90,7 @@
     var ci = 0, cr = 0, cum = RM.map(function (m) { ci += inv; cr += rv * m; return [ci, cr]; });
     var be = -1; for (var i = 0; i < cum.length; i++) { if (cum[i][1] >= cum[i][0]) { be = i; break; } }
     return { b: b, bud: bud, sc: sc, ch: ch, rs: rs, sf: sf, cl: cl, cpl: cpl, enq: enq, cu: cu, rv: rv, pl: pl, fee: fee, inv: inv, ltv: ltv, pf: pf, cum: cum, be: be,
-      mx: Math.max.apply(null, cum.map(function (x) { return Math.max(x[0], x[1]); }).concat([1])), elo: Math.round(enq * .75), ehi: Math.round(enq * 1.25) };
+      mx: Math.max.apply(null, cum.map(function (x) { return Math.max(x[0], x[1]); }).concat([1])), elo: Math.round(enq * .6), ehi: Math.round(enq * 1.2) };
   }
 
   MG.calc = { CATS: CATS, CAT_HINT: CAT_HINT, PER: PER, ITEMS: ITEMS, WT: WT, EF: EF, CHN: CHN, SCN: SCN, RS: RS, RM: RM, bt: bt, seaF: seaF, planFor: planFor, audit: audit, estimate: estimate, TAX: TAX };

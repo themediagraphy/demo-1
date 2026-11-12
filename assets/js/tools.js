@@ -138,7 +138,8 @@
     $('ebv').textContent = lk(r.bud); $('ecv').textContent = Math.round(r.cl) + '%'; $('erv').textContent = $('erp').value + '×'; $('emv').textContent = $('emg').value + '%';
     $('e1').textContent = r.elo + '–' + r.ehi; MG.tw($('e2'), r.cu, function (v) { return '~' + Math.round(v); }); MG.tw($('e3'), r.rv, lk);
     $('e4').textContent = r.cu >= .5 ? lk(r.bud / r.cu) : '-'; $('e5').textContent = (r.rv / r.inv).toFixed(1) + '×'; $('e6').textContent = be >= 0 ? 'Month ' + (be + 1) : 'After month 6'; MG.tw($('e7'), r.ltv, lk);
-    $('e10').textContent = (pf < 0 ? '-' : '') + lk(Math.abs(pf)); $('e10').style.color = pf < 0 ? 'var(--bad)' : ''; $('e11').textContent = Math.max(0, Math.floor(r.cu * .7)) + '–' + Math.ceil(r.cu * 1.3);
+    $('e10').textContent = (pf < 0 ? '-' : '') + lk(Math.abs(pf)); $('e10').style.color = pf < 0 ? 'var(--bad)' : ''; $('e11').textContent = Math.max(0, Math.floor(r.cu * .5)) + '–' + Math.ceil(r.cu * 1.2);
+    $('eas').textContent = 'Assumes about ' + lk(r.cpl) + ' per enquiry and ' + Math.round(r.cl) + ' in every 100 enquiries becoming a customer. These are typical local figures, not your own. Change the sliders to match your real numbers.';
     $$('#e8 .pc').forEach(function (p, i) { p.classList.toggle('on', i === r.pl); });
     $$('#e9 .cc').forEach(function (c, i) { var t = c.querySelectorAll('i'); t[0].style.height = Math.max(4, r.cum[i][0] / r.mx * 90) + 'px'; t[1].style.height = Math.max(4, r.cum[i][1] / r.mx * 90) + 'px'; c.title = 'Month ' + (i + 1) + ': spent ' + lk(r.cum[i][0]) + ', earned ' + lk(r.cum[i][1]); });
     LAST = ['Lead estimate: ' + b.name, 'Area: ' + $('ea').options[$('ea').selectedIndex].text, 'Channel: ' + r.ch[0] + ' (' + r.sc[0] + ' scenario)', 'Reply speed: ' + r.rs[0], 'Ad budget: ' + lk(r.bud) + ' a month',
@@ -165,12 +166,6 @@
   var timeTxt = function () { return S.k ? 'quietest time at my shop: ' + QW[S.q][0] + ($('mq') && $('mq').value.trim() ? ' (' + $('mq').value.trim() + ')' : '') : f12(S.h, S.i); };
   var slotTxt = function () { return fdt(MD[S.d]) + ', ' + timeTxt() + ' (not confirmed)'; };
   var purTxt = function () { return Array.from(PU).sort().map(function (i) { return MP[i]; }).join(', ') || 'General discussion'; };
-  function gcal() {
-    var d = MD[S.d], st = new Date(d.getFullYear(), d.getMonth(), d.getDate(), qh(), qm()), en = new Date(+st + 18e5);
-    var f = function (x) { return x.getFullYear() + String(x.getMonth() + 1).padStart(2, '0') + String(x.getDate()).padStart(2, '0') + 'T' + String(x.getHours()).padStart(2, '0') + String(x.getMinutes()).padStart(2, '0') + '00'; };
-    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text=' + encodeURIComponent('Tentative: strategy meet with The Mediagraphy') + '&dates=' + f(st) + '/' + f(en) +
-      '&details=' + encodeURIComponent('Time not confirmed yet. We will confirm or change it with you on WhatsApp.\nTopics: ' + purTxt() + '\nMode: ' + MM[S.m]) + '&location=' + encodeURIComponent(S.m === 0 ? 'Your shop (address shared on WhatsApp)' : 'Phone / video call');
-  }
   function mkc(id, arr, cur, key) { $(id).innerHTML = arr.map(function (x, i) { return '<button type="button" class="chip" ' + key + '="' + i + '" aria-pressed="' + (cur === i) + '">' + esc(String(x)) + '</button>'; }).join(''); }
   /* clock: hours 10 AM to 7 PM only, minutes in 5-minute steps (7 PM is on the hour) */
   var HRS = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19], hOk = function (n) { return HRS.indexOf(n) >= 0; };
@@ -197,7 +192,6 @@
     var plan = state.plan;
     $('msum').innerHTML = '<div><small>When (to be confirmed)</small><b>' + esc(fdt(MD[S.d]) + ', ' + (S.k ? QW[S.q][0] : f12(S.h, S.i))) + '</b></div><div><small>How</small><b>' + MM[S.m] + '</b></div><div><small>Topic</small><b>' + esc(purTxt() + (plan ? ' · ' + plan : '')) + '</b></div><div><small>For</small><b>' + esc(BT[state.bti][0]) + '</b></div>';
     $('mc').href = wa('Namaste Mediagraphy! I would like to book a strategy meet.\nName: ' + ($('mn').value || '-') + '\nBusiness: ' + ($('mbz').value || '-') + ' (' + BT[state.bti][0] + ')\nPreferred day and time: ' + slotTxt() + '\nPlease confirm or suggest another time here on WhatsApp.\nHow: ' + MM[S.m] + '\nTopics: ' + purTxt() + (plan ? '\nInterested plan: ' + plan : ''));
-    $('mgc').href = gcal();
   }
   function refocus(sel) { var e = document.querySelector(sel); if (e && !e.disabled) e.focus({ preventScroll: true }); }
   $('mk').addEventListener('click', function (e) { var b = e.target.closest('button'); if (b) { S.k = +b.dataset.k; rdMeet(); refocus('#mk [data-k="' + S.k + '"]'); } });
