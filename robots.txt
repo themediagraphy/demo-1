@@ -1,6 +1,44 @@
-# the mediagraphy.in: every public page may be crawled
+# the mediagraphy.in: every public page may be crawled, by search engines and by AI search and answer tools.
+# To opt out of AI training or answers, change Allow to Disallow for the named bot below.
+
 User-agent: *
 Allow: /
 Disallow: /404.html
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
 
 Sitemap: https://themediagraphy.in/sitemap.xml
