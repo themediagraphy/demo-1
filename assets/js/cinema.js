@@ -96,8 +96,7 @@
     ['.trust li', 'flip'], ['.bento > li', 'flip'], ['.ind > .ic', 'pop'],
     ['.tool-list > .tool', 'swing'], ['.qe', 'right'], ['.faqs > .faq', 'flip'],
     ['.cards3 > *', 'rise'], ['.fnd > *', 'up'], ['.ft__g > *', 'up'],
-    ['.cmp > *', 'zoom'], ['.steps > *:not(.steps__line)', 'swing'],
-    ['.cubewrap__t > *:not(.cube__all)', 'up'], ['.cube3d', 'zoom']
+    ['.cmp > *', 'zoom'], ['.steps > *:not(.steps__line)', 'swing']
   ];
   MAP.forEach(function (m) {
     $$(m[0]).forEach(function (el, i) {
@@ -121,7 +120,7 @@
   var hero = d.querySelector('.hero');
   if (hero) {
     var fx = d.createElement('div'); fx.className = 'hero__fx'; fx.setAttribute('aria-hidden', 'true');
-    fx.innerHTML = '<i class="aur aur--a"></i><i class="aur aur--b"></i><i class="glow"></i><i class="sh sh--ring"></i><i class="sh sh--cube"><b></b><b></b><b></b><b></b><b></b><b></b></i><i class="sh sh--dot"></i><i class="sh sh--sq2"></i><i class="sh sh--plus"></i>' +
+    fx.innerHTML = '<i class="aur aur--a"></i><i class="aur aur--b"></i><i class="glow"></i><i class="sh sh--ring"></i><i class="sh sh--dot"></i><i class="sh sh--sq2"></i><i class="sh sh--plus"></i>' +
       '<i class="sh sh--sq3"><svg viewBox="0 0 100 24" focusable="false"><path d="M2 12c8-12 16 12 24 0s16 12 24 0 16 12 24 0 16 12 24 0"/></svg></i>';
     hero.insertBefore(fx, hero.firstChild);
     if (fine) {
@@ -250,7 +249,7 @@
     d.documentElement.addEventListener('mouseleave', function () { ring.classList.remove('on'); dot.classList.remove('on'); });
   }
 
-  /* ---------- 8. (the 3D service cube and the growth-engine scene now live in solid.js) ---------- */
+  /* ---------- 8. (the growth-engine scene lives in solid.js; the local-reach 3D scene lives in reach.js) ---------- */
 
   /* ---------- 9. pause switch (visitor control over all looping motion) ---------- */
   var tog = d.getElementById('motion');
