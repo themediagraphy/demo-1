@@ -1,6 +1,6 @@
 # the mediagraphy.in: full text
 
-Source: https://themediagraphy.in/  |  Updated: 11 November 2026
+Source: https://themediagraphy.in/  |  Updated: 14 November 2026
 
 > Digital marketing and content studio in Kalyan East, Maharashtra, India. We run Google Maps and local SEO, Meta lead campaigns, social media, landing pages, WhatsApp lead routing and on-site video shoots for local businesses in Kalyan, Dombivli, Ulhasnagar, Titwala, Ambernath, Badlapur and Thane. Plans start at Rs 5,999 a month (our fee only); ad spend is paid by the client directly to Google and Meta with no commission.
 
@@ -959,7 +959,7 @@ A: We know the roads, the festivals, the language people use and what customers 
 
 ## Privacy, security and your contract
 Q: Is your website safe to use? Do you track me?
-A: The site loads only over HTTPS, runs no cookies, analytics or third-party scripts, and uses a strict security policy so it cannot load code from elsewhere. The tools calculate inside your browser. Data leaves your device only when you tap a send or book button.
+A: The site loads only over HTTPS, runs no cookies, analytics or third-party scripts (the one optional exception is the Google Drive folder you can choose to open on the Portfolio page), and uses a strict security policy so it cannot load code from elsewhere. The tools calculate inside your browser. Data leaves your device only when you tap a send or book button.
 
 Q: How do you protect my business and customer data?
 A: We collect the minimum, limit access to the three founders with two-step verification, keep the enquiry log private, use role-based access to your ad accounts and never ask for passwords or OTPs. If something goes wrong we tell you quickly and report as the law requires. Details are in our Privacy Policy.
